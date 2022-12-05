@@ -408,9 +408,11 @@ canvas1.pack()
 
 # Labels
 labelTop = tk.Label(root, text='Country Input')
-canvas1.create_window(200, 50, window=labelTop)
+labelTop.config(font=('helvetica', 20))
+canvas1.create_window(200, 25, window=labelTop)
 
 labelBottom = tk.Label(root, text=(UserInputCapitalize))
+labelBottom.config(font=('helvetica', 12))
 canvas1.create_window(200, 230, window=labelBottom)
 
 # Input Field
@@ -427,7 +429,7 @@ def result(UserInputCapitalize):
     if UserInputCapitalize == 'End':
         idx = len(countriesListEN)
         no = 195 - idx
-        labelBottom.config(text=str(no) + ' / 195 countries keyed in')
+        labelBottom.config(text=str(no) + ' / 195 countries keyed in', font=('helvetica', 12))
 
     else:
         existEN = countriesListEN.count(UserInputCapitalize)
@@ -484,7 +486,7 @@ def result(UserInputCapitalize):
     return(UserInputCapitalize)
 
 
-button1 = tk.Button(text='Check Answer', command=result)
+button1 = tk.Button(text='Check Answer', command=result, bg='brown', fg='white', font=('helvetica', 10, 'bold'))
 inputfield.bind('<Return>', result)
 
 canvas1.create_window(200, 180, window=button1)
