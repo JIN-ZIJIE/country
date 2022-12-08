@@ -1,8 +1,10 @@
 import tkinter as tk
+from tkinter import messagebox
+from time import sleep
 
 root = tk.Tk()
 
-root.title('Country.py')
+root.title('国家之战')
 
 # Variables
 countriesListEN = ['Afghanistan',
@@ -49,8 +51,8 @@ countriesListEN = ['Afghanistan',
                    'Croatia',
                    'Cuba',
                    'Cyprus',
-                   'Czechia',
-                   'Democratic Republic of the Congo',
+                   'Czech Replublic',
+                   'Democratic Republic Of The Congo',
                    'Denmark',
                    'Djibouti',
                    'Dominica',
@@ -75,7 +77,7 @@ countriesListEN = ['Afghanistan',
                    'Grenada',
                    'Guatemala',
                    'Guinea',
-                   'Guinea-Bissau',
+                   'Guinea-bissau',
                    'Guyana',
                    'Haiti',
                    'Holy See',
@@ -150,12 +152,12 @@ countriesListEN = ['Afghanistan',
                    'Romania',
                    'Russia',
                    'Rwanda',
-                   'Saint Kitts and Nevis',
+                   'Saint Kitts And Nevis',
                    'Saint Lucia',
-                   'Saint Vincent and the Grenadines',
+                   'Saint Vincent And The Grenadines',
                    'Samoa',
                    'San Marino',
-                   'Sao Tome and Principe',
+                   'Sao Tome And Principe',
                    'Saudi Arabia',
                    'Senegal',
                    'Serbia',
@@ -182,7 +184,7 @@ countriesListEN = ['Afghanistan',
                    'Timor Leste',
                    'Togo',
                    'Tonga',
-                   'Trinidad and Tobago',
+                   'Trinidad And Tobago',
                    'Tunisia',
                    'Turkey',
                    'Turkmenistan',
@@ -403,22 +405,27 @@ countriesInput = []
 UserInputCapitalize = ''
 
 # Screen
-canvas1 = tk.Canvas(root, width=400, height=300)
+canvas1 = tk.Canvas(root, width=400, height=350, bg='#e7f5ff')
 canvas1.pack()
 
 # Labels
-labelTop = tk.Label(root, text='Country Input')
+labelTop = tk.Label(root, text='Country Input / 输入国家', bg='#e7f5ff')
 labelTop.config(font=('helvetica', 20))
 canvas1.create_window(200, 25, window=labelTop)
 
-labelBottom = tk.Label(root, text=(UserInputCapitalize))
-labelBottom.config(font=('helvetica', 12))
-canvas1.create_window(200, 230, window=labelBottom)
+labelBottom1 = tk.Label(root, text=(UserInputCapitalize), bg='#e7f5ff')
+labelBottom1.config(font=('helvetica', 14))
+canvas1.create_window(200, 230, window=labelBottom1)
+
+labelBottom2 = tk.Label(root, text=(UserInputCapitalize), bg='#e7f5ff')
+labelBottom2.config(font=('helvetica', 14))
+canvas1.create_window(200, 270, window=labelBottom2)
 
 # Input Field
-inputfield = tk.Entry(root)
+inputfield = tk.Entry(root, bg='#bac8ff', font=('helvetica', 16))
 canvas1.create_window(200, 140, window=inputfield)
 
+# functions
 def clear_text():
    inputfield.delete(0, 100)
 
@@ -429,7 +436,12 @@ def result(UserInputCapitalize):
     if UserInputCapitalize == 'End':
         idx = len(countriesListEN)
         no = 195 - idx
-        labelBottom.config(text=str(no) + ' / 195 countries keyed in', font=('helvetica', 12))
+        end1 = str(no) + ' / 195 countries keyed in'
+        end2 = '输入了 ' + str(no) + ' / 195 个国家'
+        tk.messagebox.showinfo(title='游戏结束', message=end1 + '\n' + '\n' + end2)
+
+        sleep(1)
+        root.destroy()
 
     else:
         existEN = countriesListEN.count(UserInputCapitalize)
@@ -440,7 +452,8 @@ def result(UserInputCapitalize):
             tmp = ''
 
             # shows country exists
-            labelBottom.config(text='Country Exists!')
+            labelBottom1.config(text='Country Exists!')
+            labelBottom2.config(text='国家存在！')
 
             # remove it in chinese list
             ListIdx = countriesListEN.index(UserInputCapitalize)
@@ -459,7 +472,8 @@ def result(UserInputCapitalize):
             tmp = ''
 
             # shows country exists
-            labelBottom.config(text='Country Exists!')
+            labelBottom1.config(text='Country Exists!')
+            labelBottom2.config(text='国家存在！')
 
             # remove it in english list
             ListIdx = countriesListCN.index(UserInputCapitalize)
@@ -477,16 +491,18 @@ def result(UserInputCapitalize):
             keyedIn = countriesInput.count(UserInputCapitalize)
 
             if keyedIn > 0:
-                labelBottom.config(text='Country Keyed In')
+                labelBottom1.config(text='Country Keyed In')
+                labelBottom2.config(text='国家已被输入')
 
             else:
-                labelBottom.config(text='No such Country')
+                labelBottom1.config(text='No such Country')
+                labelBottom2.config(text='此国家不存在')
 
     clear_text()
     return(UserInputCapitalize)
 
 
-button1 = tk.Button(text='Check Answer', command=result, bg='brown', fg='white', font=('helvetica', 10, 'bold'))
+button1 = tk.Button(text='Check Answer / 检查答案', command=result, bg='#4dabf7', fg='white', font=('helvetica', 12, 'bold'))
 inputfield.bind('<Return>', result)
 
 canvas1.create_window(200, 180, window=button1)
